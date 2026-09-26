@@ -1,4 +1,4 @@
-# BrightMind Tuition Centre — Website
+# Shree Narayana Tuition Centre — Website
 
 A modern, responsive tuition centre website built with **React + Vite + Tailwind CSS**.
 
