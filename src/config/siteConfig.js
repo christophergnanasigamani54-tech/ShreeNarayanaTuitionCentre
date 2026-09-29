@@ -17,7 +17,7 @@ const siteConfig = {
   phone: "+91 9894160049",
   // Phone number used for WhatsApp links — country code, no spaces, no +, no leading 0
   whatsappNumber: "919894160049",
-  email: "info@ShreeNarayanaTuitionCentre.com",
+  email: "info.shreenarayanatuitioncentre@gmail.com",
 
   // Address
   address: {
@@ -31,7 +31,7 @@ const siteConfig = {
 
   // Google Maps embed (replace with your actual embed URL)
   googleMapsEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31097.0!2d80.2094!3d13.0850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDA1JzA2LjAiTiA4MMKwMTInMzMuOCJF!5e0!3m2!1sen!2sin!4v1700000000000",
+    "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d432.6603307228892!2d77.39940271311481!3d8.706347237134473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1790697712346!5m2!1sen!2sin",
 
   // Opening hours
   openingHours: [
