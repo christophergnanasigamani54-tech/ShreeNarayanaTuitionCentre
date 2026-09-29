@@ -11,13 +11,13 @@ const siteConfig = {
   // Brand
   centreName: "Shree Narayana Tuition Centre",
   shortName: "Shree Narayana",
-  tagline: "Learn. Grow. Succeed.",
+  tagline: "Learn Today, Lead Tomorrow",
 
   // Contact details
   phone: "+91 9894160049",
   // Phone number used for WhatsApp links — country code, no spaces, no +, no leading 0
   whatsappNumber: "919894160049",
-  email: "info@ShreeNarayanaTuition.com",
+  email: "info@ShreeNarayanaTuitionCentre.com",
 
   // Address
   address: {
@@ -41,7 +41,7 @@ const siteConfig = {
   ],
 
   // WhatsApp community group — change ONLY this link when your group changes
-  whatsappGroupLink: "https://chat.whatsapp.com/CwjqeE5pAHn0oAPWw1KR1b",
+  whatsappGroupLink: "https://chat.whatsapp.com/CMwetRAGNGJ8FnFXky1qKQ",
 
   // Social links (optional — leave blank string to hide)
   social: {
