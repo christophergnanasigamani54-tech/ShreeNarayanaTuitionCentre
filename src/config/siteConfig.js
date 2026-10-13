@@ -21,17 +21,17 @@ const siteConfig = {
 
   // Address
   address: {
-    line1: "3rd Floor, Sunrise Complex",
-    line2: "Anna Nagar Main Road",
-    city: "Chennai",
+    line1: "89E Kanna Nagar",
+    line2: "Senayapuram Colony",
+    city: "Sivakasi",
     state: "Tamil Nadu",
-    pincode: "600040",
-    full: "3rd Floor, Sunrise Complex, Anna Nagar Main Road, Chennai, Tamil Nadu 600040",
+    pincode: "626189",
+    full: "89E ,Kanna Nagar ,Senayapuram Colony ,Sivakasi ,Tamil Nadu ,626189",
   },
 
   // Google Maps embed (replace with your actual embed URL)
   googleMapsEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d432.6603307228892!2d77.39940271311481!3d8.706347237134473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1790697712346!5m2!1sen!2sin",
+    "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3935.5588183477375!2d77.81785033357491!3d9.460027211177204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwMjcnMTUuMyJOIDc3wrA0OCc1NS41IkU!5e0!3m2!1sen!2sin!4v1791905242820!5m2!1sen!2sin",
 
   // Opening hours
   openingHours: [
