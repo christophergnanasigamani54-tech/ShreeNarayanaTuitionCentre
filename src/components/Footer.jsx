@@ -66,7 +66,6 @@ export default function Footer() {
             <li>Classes 11–12</li>
             <li>Exam Preparation</li>
             <li>Individual Coaching</li>
-            <li>Online Classes</li>
           </ul>
         </div>
 

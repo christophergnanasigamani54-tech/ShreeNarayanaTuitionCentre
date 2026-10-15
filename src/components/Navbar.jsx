@@ -128,45 +128,50 @@ export default function Navbar() {
 
       {/*
         Mobile menu panel.
-        IMPORTANT: this lives OUTSIDE <header>. The header uses backdrop-blur,
-        which would otherwise make it the container for this fixed panel and
-        shrink the panel to the header's height (that was the transparent-menu bug).
+        - Lives OUTSIDE <header> (header's backdrop-blur would otherwise shrink this fixed panel).
+        - The outer box clips everything, so the hidden panel can never push the page
+          wider (that caused the white strip on the right side on phones).
+        - When closed the panel is invisible and off-screen; it only shows when opened.
       */}
-      <div
-        id="mobile-menu"
-        aria-hidden={!isOpen}
-        className={`lg:hidden fixed inset-x-0 bottom-0 top-16 sm:top-20 z-40 overflow-y-auto bg-white transition-transform duration-300 ease-out ${
-          isOpen ? "translate-x-0" : "translate-x-full pointer-events-none"
-        }`}
-      >
-        <ul className="flex flex-col gap-2 px-6 py-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={(e) => handleMobileLinkClick(e, link.href)}
+      <div className="lg:hidden pointer-events-none fixed inset-x-0 bottom-0 top-16 sm:top-20 z-40 overflow-hidden">
+        <div
+          id="mobile-menu"
+          aria-hidden={!isOpen}
+          className={`h-full w-full overflow-y-auto bg-white transition-all duration-300 ease-out ${
+            isOpen
+              ? "visible translate-x-0 pointer-events-auto"
+              : "invisible translate-x-full"
+          }`}
+        >
+          <ul className="flex flex-col gap-2 px-6 py-8">
+            {navLinks.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={(e) => handleMobileLinkClick(e, link.href)}
+                  tabIndex={isOpen ? 0 : -1}
+                  className="block rounded-lg px-4 py-3 text-lg font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li className="mt-4">
+              <Button
+                as="a"
+                href={getWhatsAppGroupLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="whatsapp"
+                className="w-full"
                 tabIndex={isOpen ? 0 : -1}
-                className="block rounded-lg px-4 py-3 text-lg font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
+                onClick={() => setIsOpen(false)}
               >
-                {link.label}
-              </a>
+                Join WhatsApp Group
+              </Button>
             </li>
-          ))}
-          <li className="mt-4">
-            <Button
-              as="a"
-              href={getWhatsAppGroupLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="whatsapp"
-              className="w-full"
-              tabIndex={isOpen ? 0 : -1}
-              onClick={() => setIsOpen(false)}
-            >
-              Join WhatsApp Group
-            </Button>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
     </>
   );

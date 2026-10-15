@@ -70,7 +70,7 @@ export default function About() {
                 <p className="text-sm text-slate-500 mt-1">Years of Teaching</p>
               </div>
               <div className="rounded-2xl bg-accent-400/10 p-6 text-center">
-                <p className="text-3xl font-bold text-accent-600">2000+</p>
+                <p className="text-3xl font-bold text-accent-600">100+</p>
                 <p className="text-sm text-slate-500 mt-1">Students Mentored</p>
               </div>
               <div className="rounded-2xl bg-brand-50 p-6 text-center">

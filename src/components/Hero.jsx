@@ -58,7 +58,7 @@ export default function Hero() {
           <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
             <div className="flex items-center gap-2">
               <Users size={18} className="text-brand-600" />
-              <span>2000+ Students Mentored</span>
+              <span>100+ Students Mentored</span>
             </div>
             <div className="flex items-center gap-2">
               <BookOpen size={18} className="text-brand-600" />

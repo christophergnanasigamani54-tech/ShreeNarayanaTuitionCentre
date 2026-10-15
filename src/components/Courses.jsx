@@ -42,12 +42,6 @@ const courses = [
     description:
       "One-on-one sessions designed around a student's specific gaps, learning pace and goals for faster improvement.",
   },
-  {
-    icon: Laptop,
-    title: "Online Classes",
-    description:
-      "Live interactive online sessions with recorded backups, digital notes and doubt-clearing — learn from anywhere.",
-  },
 ];
 
 export default function Courses() {
