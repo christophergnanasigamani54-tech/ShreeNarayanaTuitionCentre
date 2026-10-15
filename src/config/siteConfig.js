@@ -22,11 +22,11 @@ const siteConfig = {
   // Address
   address: {
     line1: "89E Kanna Nagar",
-    line2: "Senayapuram Colony",
+    line2: "Sivakasi East",
     city: "Sivakasi",
     state: "Tamil Nadu",
     pincode: "626189",
-    full: "89E ,Kanna Nagar ,Senayapuram Colony ,Sivakasi ,Tamil Nadu ,626189",
+    full: "89E ,Kanna Nagar ,Sivakasi East ,Sivakasi ,Tamil Nadu ,626189",
   },
 
   // Google Maps embed (replace with your actual embed URL)

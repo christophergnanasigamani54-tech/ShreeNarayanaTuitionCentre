@@ -36,3 +36,32 @@ h1, h2, h3, h4 {
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile overflow safeguards
+   Stops long text (e.g. a long email) or any wide element from
+   stretching the page wider than the phone screen, which made the
+   browser zoom out and leave a white strip on the right side.
+   ------------------------------------------------------------------ */
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Grid/flex children may shrink below their content width */
+.grid > * {
+  min-width: 0;
+}
+
+/* Long emails / phone numbers wrap instead of stretching the layout */
+a[href^="mailto:"],
+a[href^="tel:"] {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
