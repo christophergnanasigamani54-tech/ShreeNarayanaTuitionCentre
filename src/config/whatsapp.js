@@ -11,23 +11,17 @@ export function buildWhatsAppLink(message) {
 
 /**
  * Formats the enquiry form data into a readable WhatsApp message.
+ * `m` holds the labels for the current language (see src/i18n/translations.js).
  */
-export function formatEnquiryMessage({
-  studentName,
-  parentName,
-  studentClass,
-  subject,
-  phone,
-  message,
-}) {
+export function formatEnquiryMessage(data, m, centreName) {
   return (
-    `Hello ${siteConfig.centreName}! I would like to enquire about admission.\n\n` +
-    `*Student Name:* ${studentName}\n` +
-    `*Parent Name:* ${parentName}\n` +
-    `*Class:* ${studentClass}\n` +
-    `*Subject(s):* ${subject}\n` +
-    `*Phone Number:* ${phone}\n` +
-    `*Message:* ${message || "-"}`
+    `${m.greeting(centreName)}\n\n` +
+    `*${m.studentName}:* ${data.studentName}\n` +
+    `*${m.parentName}:* ${data.parentName}\n` +
+    `*${m.class}:* ${data.studentClass}\n` +
+    `*${m.subject}:* ${data.subject}\n` +
+    `*${m.phone}:* ${data.phone}\n` +
+    `*${m.message}:* ${data.message || "-"}`
   );
 }
 

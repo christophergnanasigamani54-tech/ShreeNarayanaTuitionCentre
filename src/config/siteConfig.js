@@ -35,7 +35,7 @@ const siteConfig = {
 
   // Opening hours
   openingHours: [
-    { day: "Monday – Friday", time: "4:00 PM – 8:30 PM" },
+    { day: "Monday – Friday", time: "5:30 PM – 8:30 PM" },
     { day: "Saturday", time: "10:00 AM – 6:00 PM" },
     { day: "Sunday", time: "10:00 AM – 1:00 PM (Doubt Clearing)" },
   ],

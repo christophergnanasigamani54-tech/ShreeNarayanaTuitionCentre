@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import Button from "./ui/Button";
-import siteConfig from "../config/siteConfig";
+import LanguageToggle from "./LanguageToggle";
 import { getWhatsAppGroupLink } from "../config/whatsapp";
+import { useLanguage } from "../i18n/LanguageContext";
 import logo from "../assets/logo.jpeg";
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Courses", href: "#courses" },
-  { label: "Services", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
+  { key: "home", href: "#home" },
+  { key: "about", href: "#about" },
+  { key: "courses", href: "#courses" },
+  { key: "services", href: "#why-us" },
+  { key: "contact", href: "#contact" },
 ];
 
 export default function Navbar() {
+  const { t, brand } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -66,22 +68,22 @@ export default function Navbar() {
         }`}
       >
         <nav
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between"
-          aria-label="Primary navigation"
+          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2"
+          aria-label={t.nav.primary}
         >
           {/* Logo */}
           <a
             href="#home"
             className="flex items-center gap-2.5 min-w-0"
-            aria-label={siteConfig.centreName}
+            aria-label={brand.centreName}
           >
             <img
               src={logo}
-              alt={`${siteConfig.centreName} logo`}
+              alt={t.nav.logoAlt(brand.centreName)}
               className="h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-full object-cover shadow-soft ring-1 ring-slate-100"
             />
-            <span className="font-display font-bold text-sm sm:text-lg text-slate-900 leading-tight">
-              {siteConfig.centreName}
+            <span className="font-display font-bold text-[13px] sm:text-lg text-slate-900 leading-tight">
+              {brand.centreName}
             </span>
           </a>
 
@@ -93,14 +95,15 @@ export default function Navbar() {
                   href={link.href}
                   className="text-sm font-medium text-slate-600 hover:text-brand-700 transition-colors"
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          {/* Desktop: language toggle + CTA */}
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageToggle />
             <Button
               as="a"
               href={getWhatsAppGroupLink()}
@@ -108,30 +111,32 @@ export default function Navbar() {
               rel="noopener noreferrer"
               variant="whatsapp"
             >
-              Join WhatsApp
+              {t.nav.joinShort}
             </Button>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="lg:hidden inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100"
-            onClick={() => setIsOpen((v) => !v)}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {isOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {/* Mobile: language toggle + hamburger */}
+          <div className="flex shrink-0 items-center gap-1.5 lg:hidden">
+            <LanguageToggle className="!px-2.5 !py-1.5 text-xs" />
+            <button
+              type="button"
+              className="inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-slate-700 hover:bg-slate-100"
+              onClick={() => setIsOpen((v) => !v)}
+              aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+            >
+              {isOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
         </nav>
       </header>
 
       {/*
         Mobile menu panel.
         - Lives OUTSIDE <header> (header's backdrop-blur would otherwise shrink this fixed panel).
-        - The outer box clips everything, so the hidden panel can never push the page
-          wider (that caused the white strip on the right side on phones).
-        - When closed the panel is invisible and off-screen; it only shows when opened.
+        - The outer box clips everything, so the hidden panel can never push the page wider.
+        - When closed the panel is invisible; it only shows when opened.
       */}
       <div className="lg:hidden pointer-events-none fixed inset-x-0 bottom-0 top-16 sm:top-20 z-40 overflow-hidden">
         <div
@@ -152,7 +157,7 @@ export default function Navbar() {
                   tabIndex={isOpen ? 0 : -1}
                   className="block rounded-lg px-4 py-3 text-lg font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
                 >
-                  {link.label}
+                  {t.nav[link.key]}
                 </a>
               </li>
             ))}
@@ -163,11 +168,11 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="whatsapp"
-                className="w-full"
+                className="w-full text-center !px-4"
                 tabIndex={isOpen ? 0 : -1}
                 onClick={() => setIsOpen(false)}
               >
-                Join WhatsApp Group
+                {t.nav.join}
               </Button>
             </li>
           </ul>

@@ -65,3 +65,77 @@ a[href^="tel:"] {
   overflow-wrap: anywhere;
   word-break: break-word;
 }
+
+/* ------------------------------------------------------------------
+   Tamil language mode  (<html lang="ta">)
+   Tamil letters are taller than English ones, so they need a Tamil
+   font, a little more line height and normal letter spacing.
+   The Tamil font itself is loaded automatically when Tamil is chosen.
+   ------------------------------------------------------------------ */
+html[lang="ta"] body,
+html[lang="ta"] h1,
+html[lang="ta"] h2,
+html[lang="ta"] h3,
+html[lang="ta"] h4,
+html[lang="ta"] .font-display,
+html[lang="ta"] button,
+html[lang="ta"] input,
+html[lang="ta"] textarea {
+  font-family: "Noto Sans Tamil", "Latha", "Nirmala UI", "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+html[lang="ta"] h1,
+html[lang="ta"] h2,
+html[lang="ta"] h3,
+html[lang="ta"] h4 {
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+
+html[lang="ta"] .leading-tight,
+html[lang="ta"] .leading-snug {
+  line-height: 1.4;
+}
+
+html[lang="ta"] p,
+html[lang="ta"] li,
+html[lang="ta"] span,
+html[lang="ta"] a,
+html[lang="ta"] label {
+  letter-spacing: normal;
+}
+
+html[lang="ta"] .tracking-wider,
+html[lang="ta"] .tracking-tight {
+  letter-spacing: normal;
+}
+
+html[lang="ta"] .uppercase {
+  text-transform: none;
+}
+
+/* Tamil words are long — slightly smaller headings so they fit phone screens */
+@media (max-width: 639px) {
+  html[lang="ta"] h1 {
+    font-size: 1.75rem;
+  }
+  html[lang="ta"] h2 {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  html[lang="ta"] h1 {
+    font-size: 2.5rem;
+  }
+  html[lang="ta"] h2 {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  html[lang="ta"] h1 {
+    font-size: 2.9rem;
+  }
+  html[lang="ta"] h2 {
+    font-size: 2.25rem;
+  }
+}

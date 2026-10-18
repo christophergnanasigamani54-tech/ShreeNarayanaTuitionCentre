@@ -1,32 +1,34 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import siteConfig from "../config/siteConfig";
+import { useLanguage } from "../i18n/LanguageContext";
 import logo from "../assets/logo.jpeg";
 
 const quickLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Courses", href: "#courses" },
-  { label: "Why Choose Us", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
+  { key: "home", href: "#home" },
+  { key: "about", href: "#about" },
+  { key: "courses", href: "#courses" },
+  { key: "why", href: "#why-us" },
+  { key: "contact", href: "#contact" },
 ];
 
 export default function Footer() {
+  const { t, brand } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-slate-900 text-slate-300">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <img
               src={logo}
-              alt={`${siteConfig.centreName} logo`}
-              className="h-10 w-10 rounded-full object-cover ring-1 ring-white/10"
+              alt={t.nav.logoAlt(brand.centreName)}
+              className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-white/10"
             />
-            <span className="font-display font-bold text-white">{siteConfig.centreName}</span>
+            <span className="font-display font-bold text-white">{brand.centreName}</span>
           </div>
-          <p className="text-sm leading-relaxed text-slate-400">{siteConfig.tagline}</p>
+          <p className="text-sm leading-relaxed text-slate-400">{brand.tagline}</p>
 
           {(siteConfig.social.facebook || siteConfig.social.instagram || siteConfig.social.youtube) && (
             <div className="flex gap-3 mt-5">
@@ -45,12 +47,12 @@ export default function Footer() {
 
         {/* Quick links */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+          <h4 className="text-white font-semibold mb-4">{t.footer.quickLinks}</h4>
           <ul className="space-y-2.5 text-sm">
             {quickLinks.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="hover:text-white transition-colors">
-                  {link.label}
+                  {t.footer.links[link.key]}
                 </a>
               </li>
             ))}
@@ -59,23 +61,21 @@ export default function Footer() {
 
         {/* Courses */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Courses</h4>
+          <h4 className="text-white font-semibold mb-4">{t.footer.courses}</h4>
           <ul className="space-y-2.5 text-sm text-slate-400">
-            <li>Classes 6–8</li>
-            <li>Classes 9–10</li>
-            <li>Classes 11–12</li>
-            <li>Exam Preparation</li>
-            <li>Individual Coaching</li>
+            {t.courses.items.map((course) => (
+              <li key={course.title}>{course.title}</li>
+            ))}
           </ul>
         </div>
 
         {/* Contact */}
         <div>
-          <h4 className="text-white font-semibold mb-4">Contact</h4>
+          <h4 className="text-white font-semibold mb-4">{t.footer.contact}</h4>
           <ul className="space-y-3 text-sm text-slate-400">
             <li className="flex gap-2.5">
               <MapPin size={16} className="shrink-0 mt-0.5" />
-              <span>{siteConfig.address.full}</span>
+              <span className="min-w-0 break-words">{brand.address.full}</span>
             </li>
             <li className="flex gap-2.5">
               <Phone size={16} className="shrink-0 mt-0.5" />
@@ -85,7 +85,7 @@ export default function Footer() {
             </li>
             <li className="flex gap-2.5">
               <Mail size={16} className="shrink-0 mt-0.5" />
-              <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
+              <a href={`mailto:${siteConfig.email}`} className="min-w-0 break-all hover:text-white">
                 {siteConfig.email}
               </a>
             </li>
@@ -95,7 +95,7 @@ export default function Footer() {
 
       <div className="border-t border-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-slate-500">
-          © {year} {siteConfig.centreName}. All rights reserved.
+          {t.footer.rights(year, brand.centreName)}
         </div>
       </div>
     </footer>

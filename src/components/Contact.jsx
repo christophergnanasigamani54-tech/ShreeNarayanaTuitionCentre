@@ -5,6 +5,7 @@ import Reveal from "./ui/Reveal";
 import Button from "./ui/Button";
 import siteConfig from "../config/siteConfig";
 import { buildWhatsAppLink, formatEnquiryMessage, getWhatsAppGroupLink } from "../config/whatsapp";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const initialForm = {
   studentName: "",
@@ -16,7 +17,10 @@ const initialForm = {
 };
 
 export default function Contact() {
+  const { t, brand, hours } = useLanguage();
+  const c = t.contact;
   const [form, setForm] = useState(initialForm);
+  // Errors are stored as keys (not text) so they re-translate when the language changes
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -26,14 +30,14 @@ export default function Contact() {
 
   const validate = () => {
     const newErrors = {};
-    if (!form.studentName.trim()) newErrors.studentName = "Student name is required";
-    if (!form.parentName.trim()) newErrors.parentName = "Parent name is required";
-    if (!form.studentClass.trim()) newErrors.studentClass = "Class is required";
-    if (!form.subject.trim()) newErrors.subject = "Subject is required";
+    if (!form.studentName.trim()) newErrors.studentName = "studentName";
+    if (!form.parentName.trim()) newErrors.parentName = "parentName";
+    if (!form.studentClass.trim()) newErrors.studentClass = "studentClass";
+    if (!form.subject.trim()) newErrors.subject = "subject";
     if (!form.phone.trim()) {
-      newErrors.phone = "Phone number is required";
+      newErrors.phone = "phoneRequired";
     } else if (!/^[0-9+\-\s]{7,15}$/.test(form.phone.trim())) {
-      newErrors.phone = "Enter a valid phone number";
+      newErrors.phone = "phoneInvalid";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -43,7 +47,7 @@ export default function Contact() {
     e.preventDefault();
     if (!validate()) return;
 
-    const message = formatEnquiryMessage(form);
+    const message = formatEnquiryMessage(form, c.wa, brand.centreName);
     const link = buildWhatsAppLink(message);
     window.open(link, "_blank", "noopener,noreferrer");
 
@@ -51,39 +55,37 @@ export default function Contact() {
     setErrors({});
   };
 
+  const address = brand.address;
+
   return (
     <section id="contact" className="py-20 sm:py-28 bg-slate-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <SectionHeading
-            eyebrow="Contact Us"
-            title="Get In Touch"
-            description="Have a question or want to enroll? Reach out to us directly or send an enquiry — we'll reply on WhatsApp right away."
-          />
+          <SectionHeading eyebrow={c.eyebrow} title={c.title} description={c.description} />
         </Reveal>
 
-        <div className="grid lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Contact info + map */}
-          <Reveal className="lg:col-span-2 flex flex-col gap-6">
+          <Reveal className="min-w-0 lg:col-span-2 flex flex-col gap-6">
             <div className="rounded-2xl bg-white p-6 sm:p-8 shadow-soft border border-slate-100 space-y-5">
-              <InfoRow icon={MapPin} label="Address">
-                {siteConfig.address.line1}, {siteConfig.address.line2}
+              <InfoRow icon={MapPin} label={c.address}>
+                {address.line1}, {address.line2}
                 <br />
-                {siteConfig.address.city}, {siteConfig.address.state} - {siteConfig.address.pincode}
+                {address.city}, {address.state} - {address.pincode}
               </InfoRow>
-              <InfoRow icon={Phone} label="Phone">
+              <InfoRow icon={Phone} label={c.phone}>
                 <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="hover:text-brand-700">
                   {siteConfig.phone}
                 </a>
               </InfoRow>
-              <InfoRow icon={Mail} label="Email">
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-brand-700">
+              <InfoRow icon={Mail} label={c.email}>
+                <a href={`mailto:${siteConfig.email}`} className="break-all hover:text-brand-700">
                   {siteConfig.email}
                 </a>
               </InfoRow>
-              <InfoRow icon={Clock} label="Opening Hours">
+              <InfoRow icon={Clock} label={c.hours}>
                 <ul className="space-y-1">
-                  {siteConfig.openingHours.map((slot) => (
+                  {hours.map((slot) => (
                     <li key={slot.day} className="flex justify-between gap-4 text-sm">
                       <span>{slot.day}</span>
                       <span className="font-medium text-slate-700">{slot.time}</span>
@@ -100,14 +102,14 @@ export default function Contact() {
                 variant="whatsapp"
                 className="w-full mt-2"
               >
-                <MessageCircle size={18} /> Join Our WhatsApp Group
+                <MessageCircle size={18} /> {c.joinGroup}
               </Button>
             </div>
 
-            {/* Google Maps placeholder */}
+            {/* Google Maps */}
             <div className="rounded-2xl overflow-hidden shadow-soft border border-slate-100 h-64 sm:h-72">
               <iframe
-                title={`${siteConfig.centreName} Location`}
+                title={c.mapTitle(brand.centreName)}
                 src={siteConfig.googleMapsEmbedUrl}
                 width="100%"
                 height="100%"
@@ -120,63 +122,61 @@ export default function Contact() {
           </Reveal>
 
           {/* Enquiry form */}
-          <Reveal delay={100} className="lg:col-span-3">
+          <Reveal delay={100} className="min-w-0 lg:col-span-3">
             <form
               onSubmit={handleSubmit}
               noValidate
               className="rounded-2xl bg-white p-6 sm:p-8 shadow-soft border border-slate-100"
             >
-              <h3 className="text-xl font-semibold mb-1">Send an Enquiry</h3>
-              <p className="text-sm text-slate-500 mb-6">
-                Fill the form below and it will open WhatsApp with your details pre-filled.
-              </p>
+              <h3 className="text-xl font-semibold mb-1">{c.formTitle}</h3>
+              <p className="text-sm text-slate-500 mb-6">{c.formHint}</p>
 
               <div className="grid sm:grid-cols-2 gap-5">
                 <Field
-                  label="Student Name"
+                  label={c.studentName}
                   name="studentName"
                   value={form.studentName}
                   onChange={handleChange}
-                  error={errors.studentName}
-                  placeholder="e.g. Aditya Sharma"
+                  error={errors.studentName && c.errors[errors.studentName]}
+                  placeholder={c.ph.studentName}
                 />
                 <Field
-                  label="Parent Name"
+                  label={c.parentName}
                   name="parentName"
                   value={form.parentName}
                   onChange={handleChange}
-                  error={errors.parentName}
-                  placeholder="e.g. Rajesh Sharma"
+                  error={errors.parentName && c.errors[errors.parentName]}
+                  placeholder={c.ph.parentName}
                 />
                 <Field
-                  label="Class"
+                  label={c.class}
                   name="studentClass"
                   value={form.studentClass}
                   onChange={handleChange}
-                  error={errors.studentClass}
-                  placeholder="e.g. Class 10"
+                  error={errors.studentClass && c.errors[errors.studentClass]}
+                  placeholder={c.ph.class}
                 />
                 <Field
-                  label="Subject"
+                  label={c.subject}
                   name="subject"
                   value={form.subject}
                   onChange={handleChange}
-                  error={errors.subject}
-                  placeholder="e.g. Maths, Science"
+                  error={errors.subject && c.errors[errors.subject]}
+                  placeholder={c.ph.subject}
                 />
                 <Field
-                  label="Phone Number"
+                  label={c.phoneNumber}
                   name="phone"
                   type="tel"
                   value={form.phone}
                   onChange={handleChange}
-                  error={errors.phone}
-                  placeholder="e.g. 98765 43210"
+                  error={errors.phone && c.errors[errors.phone]}
+                  placeholder={c.ph.phone}
                   className="sm:col-span-2"
                 />
                 <div className="sm:col-span-2">
                   <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1.5">
-                    Message <span className="text-slate-400 font-normal">(optional)</span>
+                    {c.message} <span className="text-slate-400 font-normal">{c.optional}</span>
                   </label>
                   <textarea
                     id="message"
@@ -184,14 +184,14 @@ export default function Contact() {
                     rows={4}
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="Tell us anything specific about your enquiry..."
+                    placeholder={c.ph.message}
                     className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-100 transition-all resize-none"
                   />
                 </div>
               </div>
 
               <Button type="submit" variant="whatsapp" className="w-full sm:w-auto mt-6">
-                <Send size={17} /> Send via WhatsApp
+                <Send size={17} /> {c.send}
               </Button>
             </form>
           </Reveal>
@@ -207,7 +207,7 @@ function InfoRow({ icon: Icon, label, children }) {
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
         <Icon size={18} />
       </span>
-      <div className="text-sm text-slate-600">
+      <div className="min-w-0 flex-1 break-words text-sm text-slate-600">
         <p className="font-semibold text-slate-800 mb-0.5">{label}</p>
         {children}
       </div>

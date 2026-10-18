@@ -1,10 +1,13 @@
-import { BookOpen, Users, Award, ArrowRight } from "lucide-react";
+import { Users, Award, ArrowRight, BookOpen } from "lucide-react";
 import Button from "./ui/Button";
 import siteConfig from "../config/siteConfig";
+import stats from "../config/stats";
 import { getWhatsAppGroupLink } from "../config/whatsapp";
+import { useLanguage } from "../i18n/LanguageContext";
 import heroPhoto from "../assets/hero-photo.jpeg";
 
 export default function Hero() {
+  const { t, brand } = useLanguage();
   const yearsOfExperience = new Date().getFullYear() - siteConfig.foundedYear;
 
   return (
@@ -20,23 +23,22 @@ export default function Hero() {
         {/* Text content */}
         <div className="text-center lg:text-left animate-fadeUp">
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-brand-700 shadow-soft mb-6">
-            <Award size={14} className="text-accent-500" />
-            {yearsOfExperience}+ Years of Academic Excellence
+            <Award size={14} className="shrink-0 text-accent-500" />
+            {t.hero.badge(yearsOfExperience)}
           </span>
 
           <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold leading-[1.1] tracking-tight mb-6">
-            Welcome to{" "}
-            <span className="text-brand-600">{siteConfig.centreName}</span>
+            {t.hero.titlePrefix}
+            <span className="text-brand-600">{brand.centreName}</span>
+            {t.hero.titleSuffix}
           </h1>
 
           <p className="text-lg sm:text-xl font-medium text-slate-600 mb-4">
-            {siteConfig.tagline}
+            {brand.tagline}
           </p>
 
           <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
-            Quality academic coaching for school students from Class 6 to 12 —
-            with experienced teachers, small batches, personal attention and
-            regular assessments that help every student truly excel.
+            {t.hero.description}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -48,21 +50,21 @@ export default function Hero() {
               variant="whatsapp"
               className="w-full sm:w-auto"
             >
-              Join WhatsApp Group
+              {t.hero.join}
             </Button>
             <Button as="a" href="#contact" variant="outline" className="w-full sm:w-auto">
-              Enquire Now <ArrowRight size={16} />
+              {t.hero.enquire} <ArrowRight size={16} />
             </Button>
           </div>
 
           <div className="mt-10 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500">
             <div className="flex items-center gap-2">
-              <Users size={18} className="text-brand-600" />
-              <span>100+ Students Mentored</span>
+              <Users size={18} className="shrink-0 text-brand-600" />
+              <span>{t.hero.studentsMentored(stats.studentsMentored)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <BookOpen size={18} className="text-brand-600" />
-              <span>Classes 6–12</span>
+              <BookOpen size={18} className="shrink-0 text-brand-600" />
+              <span>{t.hero.classes}</span>
             </div>
           </div>
         </div>
@@ -72,21 +74,21 @@ export default function Hero() {
           <div className="relative mx-auto max-w-md aspect-square rounded-[2.5rem] shadow-card overflow-hidden">
             <img
               src={heroPhoto}
-              alt={`${siteConfig.centreName} — students learning together`}
+              alt={t.hero.imageAlt(brand.centreName)}
               className="h-full w-full object-cover"
             />
 
             {/* Floating badge cards */}
             <div className="absolute top-6 left-6 bg-white rounded-2xl shadow-card px-4 py-3 animate-float">
-              <p className="text-xs text-slate-400">Result Rate</p>
-              <p className="text-lg font-bold text-brand-700">98%</p>
+              <p className="text-xs text-slate-400">{t.hero.resultRate}</p>
+              <p className="text-lg font-bold text-brand-700">{stats.passPercentage}</p>
             </div>
             <div
               className="absolute bottom-6 right-6 bg-white rounded-2xl shadow-card px-4 py-3 animate-float"
               style={{ animationDelay: "1.2s" }}
             >
-              <p className="text-xs text-slate-400">Batch Size</p>
-              <p className="text-lg font-bold text-accent-600">Max 15</p>
+              <p className="text-xs text-slate-400">{t.hero.batchSize}</p>
+              <p className="text-lg font-bold text-accent-600">{t.hero.maxBatch(stats.maxBatchSize)}</p>
             </div>
           </div>
         </div>
