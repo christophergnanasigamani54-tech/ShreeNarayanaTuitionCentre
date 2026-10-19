@@ -1,4 +1,4 @@
-import { useState } from "react";
+   import { useEffect, useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from "lucide-react";
 import SectionHeading from "./ui/SectionHeading";
 import Reveal from "./ui/Reveal";
@@ -6,6 +6,7 @@ import Button from "./ui/Button";
 import siteConfig from "../config/siteConfig";
 import { buildWhatsAppLink, formatEnquiryMessage, getWhatsAppGroupLink } from "../config/whatsapp";
 import { useLanguage } from "../i18n/LanguageContext";
+import { extra } from "../i18n/extra";
 
 const initialForm = {
   studentName: "",
@@ -17,12 +18,23 @@ const initialForm = {
 };
 
 export default function Contact() {
-  const { t, brand, hours } = useLanguage();
+  const { t, brand, hours, lang } = useLanguage();
   const c = t.contact;
   const [form, setForm] = useState(initialForm);
   // Errors are stored as keys (not text) so they re-translate when the language changes
   const [errors, setErrors] = useState({});
 
+     // When a parent taps "Enquire Now" on a course card, pre-fill the Message box with that course
+   useEffect(() => {
+     const onCourseSelected = (e) => {
+       const title = e.detail && e.detail.title;
+       if (!title) return;
+       setForm((prev) => ({ ...prev, message: extra[lang].enquiry.prefill(title) }));
+     };
+     window.addEventListener("enquire-course", onCourseSelected);
+     return () => window.removeEventListener("enquire-course", onCourseSelected);
+   }, [lang]); 
+   
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));

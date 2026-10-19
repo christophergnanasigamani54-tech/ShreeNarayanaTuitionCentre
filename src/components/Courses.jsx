@@ -42,11 +42,17 @@ export default function Courses() {
                   <p className="text-sm text-slate-500 leading-relaxed mb-6 flex-grow">
                     {course.description}
                   </p>
+                  
                   <Button
                     as="a"
                     href="#contact"
                     variant="outline"
                     className="self-start !px-5 !py-2.5 text-sm"
+                    onClick={() =>
+                      window.dispatchEvent(
+                        new CustomEvent("enquire-course", { detail: { title: course.title } })
+                      )
+                    }
                   >
                     {t.courses.cta} <ArrowUpRight size={15} />
                   </Button>
