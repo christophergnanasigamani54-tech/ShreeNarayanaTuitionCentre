@@ -9,6 +9,7 @@ import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ScrollToTop />
     </div>
   );
 }
