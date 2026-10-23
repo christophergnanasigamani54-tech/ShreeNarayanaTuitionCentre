@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-900 text-slate-300">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-24 text-center text-xs text-slate-500">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2.5 mb-4">
@@ -94,7 +94,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-slate-800">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-slate-500">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-24 text-center text-xs text-slate-500">
           {t.footer.rights(year, brand.centreName)}
         </div>
       </div>
