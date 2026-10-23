@@ -5,6 +5,7 @@ import stats from "../config/stats";
 import { getWhatsAppGroupLink } from "../config/whatsapp";
 import { useLanguage } from "../i18n/LanguageContext";
 import heroPhoto from "../assets/hero-photo.jpeg";
+import DailyKural from "./DailyKural";
 
 export default function Hero() {
   const { t, brand } = useLanguage();
@@ -15,6 +16,8 @@ export default function Hero() {
       id="home"
       className="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white pt-28 pb-16 sm:pt-36 sm:pb-24"
     >
+      <DailyKural />
+
       {/* Decorative blobs */}
       <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-accent-400/20 blur-3xl animate-blob" aria-hidden="true" />
       <div className="pointer-events-none absolute top-1/2 -left-24 h-72 w-72 rounded-full bg-brand-400/20 blur-3xl animate-blob" style={{ animationDelay: "3s" }} aria-hidden="true" />

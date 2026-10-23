@@ -22,6 +22,10 @@ navbar, hero, footer, contact section, and the WhatsApp enquiry form.
 - lucide-react (icons)
 - Pure client-side — **no backend required**
 
+The daily Thirukkural card displays a Kural from all 1,330 using the
+[Thirukkural API](https://kural.codewithram.dev/)'s daily endpoint. An internet
+connection is required to display the verse.
+
 ## 🚀 Getting Started Locally
 
 ```bash

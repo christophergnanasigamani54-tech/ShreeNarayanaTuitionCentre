@@ -96,6 +96,13 @@ export const translations = {
       batchSize: "Batch Size",
       maxBatch: (n) => `Max ${n}`,
     },
+    dailyKural: {
+      title: "Today's Thirukkural",
+      number: (n) => `Kural ${n}`,
+      loading: "Loading today's Kural...",
+      error: "Today's Kural couldn't be loaded.",
+      retry: "Try again",
+    },
     about: {
       eyebrow: "About Us",
       title: (short) => `Why Families Trust ${short}`,
@@ -318,6 +325,13 @@ export const translations = {
       resultRate: "தேர்ச்சி விகிதம்",
       batchSize: "பிரிவு அளவு",
       maxBatch: (n) => `அதிகபட்சம் ${n}`,
+    },
+    dailyKural: {
+      title: "இன்றைய திருக்குறள்",
+      number: (n) => `குறள் ${n}`,
+      loading: "இன்றைய குறள் ஏற்றப்படுகிறது...",
+      error: "இன்றைய குறளை ஏற்ற முடியவில்லை.",
+      retry: "மீண்டும் முயற்சிக்கவும்",
     },
     about: {
       eyebrow: "எங்களைப் பற்றி",
